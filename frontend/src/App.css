@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-dark-blue: #0f1b2b;
+  --color-light-blue: #1b3559;
+  --color-light-shadow: rgba(0, 0, 0, 0.4);
+  --color-hard-shadow: rgba(255, 255, 255, 0.1);
+  --font-sans-roboto: "Roboto", sans-serif;
+}
