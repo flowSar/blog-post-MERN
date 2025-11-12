@@ -19,7 +19,7 @@ function Home() {
     loadPosts();
   }, []);
   return (
-    <div className='flex flex-col md:flex-row flex-1 gap-4 mx-4'>
+    <div className='flex flex-col md:flex-row flex-1 gap-4 mt-4'>
       <div className=' w-full md:w-4/5 '>
         <div>
           <div className='flex gap-4 items-center'>
@@ -31,13 +31,15 @@ function Home() {
           </p>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <aside className='flex md:hidden  md:w-1/5 bg-amber-300'>f</aside>
+          <aside className='flex md:hidden  md:w-1/5 dark:bg-light-blue'>
+            f
+          </aside>
           {post.map((post) => (
             <PostCard post={post} />
           ))}
         </div>
       </div>
-      <aside className='hidden md:flex  md:w-1/5 bg-amber-300'>f</aside>
+      <aside className='hidden md:flex md:w-1/5 dark:bg-light-blue'></aside>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 
 interface PostsIconProps {
-  className: string;
+  className?: string;
 }
 function PostsIcon({ className }: PostsIconProps) {
   return (
