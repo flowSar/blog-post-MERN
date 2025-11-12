@@ -1,8 +1,4 @@
-import express, {
-  type Request,
-  type RequestHandler,
-  type Response,
-} from "express";
+import express from "express";
 import {
   allPosts,
   createPost,
@@ -17,10 +13,8 @@ import {
 } from "../validations/postValidation.js";
 import { auth, type AuthRequest } from "../middleware/authMiddleware.js";
 import { verifyRoles } from "../middleware/verifyRoles.js";
-import {
-  verifyOwnership,
-  verifyPermissions,
-} from "../middleware/permissions/postPermissions.js";
+import { verifyOwnership } from "../middleware/permissions/postPermissions.js";
+import { verifyPermissions } from "../middleware/permissions/permessions.js";
 
 const postRouter = express.Router();
 
@@ -28,13 +22,20 @@ postRouter.get("/", allPosts);
 
 postRouter.get("/:id", validateMongoId, showPost);
 
-postRouter.post("/", postBodyValidation, auth, createPost);
+// no any one can create post, so we need to verify the permession , becuase we can remove create permission on a user
+postRouter.post(
+  "/",
+  postBodyValidation,
+  auth,
+  verifyPermissions("create_post"),
+  createPost
+);
 
 postRouter.put(
   "/:id",
   validateMongoId,
   postBodyValidationUpdate,
-  auth as RequestHandler,
+  auth,
   verifyOwnership,
   updatePost
 );
@@ -44,7 +45,7 @@ postRouter.delete(
   validateMongoId,
   auth,
   verifyOwnership,
-  verifyRoles("user", "admin"),
+  verifyRoles("user", "admin", "moderator"),
   verifyPermissions("delete_post"),
   destroyPost
 );
