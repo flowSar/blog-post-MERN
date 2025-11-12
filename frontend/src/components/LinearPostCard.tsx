@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { deletePost } from "../services/api/PostApi";
 import type { PostInterface } from "../utils/types";
 import CommentIcon from "./icons/CommentIcon";
@@ -44,9 +45,13 @@ function LinearPostCard({ post }: { post: PostInterface }) {
             >
               Delete
             </button>
-            <button className='bg-green-500 text-white py-1.5 px-4 rounded-md font-bold cursor-pointer'>
+            <Link
+              to={`/posts/${post._id}/edit`}
+              state={{ post }}
+              className='bg-green-500 text-white py-1.5 px-4 rounded-md font-bold cursor-pointer'
+            >
               Edit
-            </button>
+            </Link>
           </div>
         </div>
       </div>

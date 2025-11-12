@@ -4,10 +4,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Layout from "./layouts/Layout";
-import GuestRoute from "./components/GuestRoutes";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Guest from "./components/Guest";
+import Auth from "./components/Auth";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import CreatePost from "./pages/CreatePost";
+import EditPost from "./pages/EditPost";
 
 function App() {
   const dark = localStorage.getItem("dark");
@@ -23,35 +24,36 @@ function App() {
           <Route
             path='/login'
             element={
-              <GuestRoute>
+              <Guest>
                 <Login />
-              </GuestRoute>
+              </Guest>
             }
           />
           <Route
             path='/register'
             element={
-              <GuestRoute>
+              <Guest>
                 <Register />
-              </GuestRoute>
+              </Guest>
             }
           />
           <Route
             path='/dashboard'
             element={
-              <ProtectedRoute>
+              <Auth>
                 <Dashboard />
-              </ProtectedRoute>
+              </Auth>
             }
           />
           <Route
             path='/post/create'
             element={
-              <ProtectedRoute>
+              <Auth>
                 <CreatePost />
-              </ProtectedRoute>
+              </Auth>
             }
           />
+          <Route path='/posts/:id/edit' element={<EditPost />} />
         </Route>
       </Routes>
     </>

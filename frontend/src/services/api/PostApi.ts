@@ -53,4 +53,17 @@ export const deletePost = async (id: string) => {
   }
 };
 
-export const updatePost = async () => {};
+export const updatePost = async (id: string, form: FormData) => {
+  try {
+    const response = await api.put(`http://localhost:4444/posts/${id}`, form);
+    const { success, data, message } = response.data;
+    return { success, data, message };
+  } catch (error: any) {
+    console.log("update post error: ", error);
+    return {
+      success: false,
+      errors: error.response.data.errors,
+      message: error.response.data.message,
+    };
+  }
+};
