@@ -12,3 +12,13 @@ export interface PostInterface {
     username: string;
   };
 }
+
+export interface UserInterface {
+  id: string;
+  username: string;
+  email: string;
+  profileImage: string;
+  bio: string;
+  role: string;
+  permissions: string[];
+}

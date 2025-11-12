@@ -6,6 +6,7 @@ import uploadIconSvg from "../assets/icons/upload-img.svg";
 import { useUploadImage } from "../hooks/useUploadImage";
 import { createPost } from "../services/api/PostApi";
 import LoadingOverlay from "../components/LoadingOverlay";
+import CanCreatePost from "../components/permissions/CanCreatePost";
 
 function CreatePost() {
   const [content, setContent] = useState("");
@@ -70,12 +71,14 @@ function CreatePost() {
         >
           Preview
         </button>
-        <button
-          onClick={submitPost}
-          className='py-2 px-6 bg-blue-500 rounded-lg cursor-pointer'
-        >
-          Publish
-        </button>
+        <CanCreatePost>
+          <button
+            onClick={submitPost}
+            className='py-2 px-6 bg-blue-500 rounded-lg cursor-pointer'
+          >
+            Publish
+          </button>
+        </CanCreatePost>
       </div>
       <div
         onClick={OpenFileManager}
@@ -91,7 +94,7 @@ function CreatePost() {
           hidden
         />
         <img
-          src={coverPreview}
+          src={coverPreview || "example.png"}
           className='w-full h-full  object-cover group-hover:opacity-50 duration-300'
         />
         <img

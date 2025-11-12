@@ -6,18 +6,11 @@ import {
   type ReactNode,
 } from "react";
 import api from "../services/api/axiosInstance";
-
-interface UserProps {
-  id: string;
-  username: string;
-  email: string;
-  profileImage: string;
-  bio: string;
-}
+import type { UserInterface } from "../utils/types";
 
 interface AuthContextProps {
   isLogged: boolean;
-  user: UserProps | null;
+  user: UserInterface | null;
   loading: boolean;
   checkAuth?: () => void;
   logout?: () => void;
@@ -30,7 +23,7 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<UserProps | null>(null);
+  const [user, setUser] = useState<UserInterface | null>(null);
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 

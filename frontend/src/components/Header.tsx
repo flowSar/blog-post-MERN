@@ -90,6 +90,9 @@ function Header() {
                         <div className='absolute top-[60px] left-0 bg-light-blue py-4 px-4 w-full md:w-48'>
                           <ul className='flex flex-col items-start gap-2'>
                             <li className='cursor-pointer hover:underline'>
+                              <Link to={"/profile"}>{user?.username}</Link>
+                            </li>
+                            <li className='cursor-pointer hover:underline'>
                               <Link to={"/profile"}>Profile</Link>
                             </li>
                             <li className='cursor-pointer hover:underline'>

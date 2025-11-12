@@ -32,7 +32,11 @@ function EditPost() {
     setLoading(true);
     try {
       if (coverImageFile) {
-        const { imageUrl } = await uploadImag(coverImageFile);
+        let imageUrl = coverPreview;
+        if (coverImageFile) {
+          const result = await uploadImag(coverImageFile);
+          imageUrl = result.imageUrl;
+        }
         if (imageUrl) {
           const formData = new FormData();
           formData.append("title", title);
@@ -46,12 +50,12 @@ function EditPost() {
             formData
           );
           if (success) {
-            alert("posts created");
-            console.log("post: ", data);
+            alert("posts update");
             setContent("");
             setTitle("");
             setDescription("");
             setCoverPreview("");
+            window.location.href = "/dashboard";
           } else {
             alert(`updated post failed ${message}`);
           }
@@ -60,7 +64,7 @@ function EditPost() {
         }
       }
     } catch (error) {
-      alert("something wen wrong try again");
+      alert("something went wrong try again");
     } finally {
       setLoading(false);
     }

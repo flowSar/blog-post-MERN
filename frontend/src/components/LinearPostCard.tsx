@@ -3,6 +3,8 @@ import { deletePost } from "../services/api/PostApi";
 import type { PostInterface } from "../utils/types";
 import CommentIcon from "./icons/CommentIcon";
 import LikeIcon from "./icons/LikeIcon";
+import CanDeletePost from "./permissions/CanDeletePost";
+import CanUpdatePost from "./permissions/CanUpdatePost";
 
 function LinearPostCard({ post }: { post: PostInterface }) {
   const handleDeletePost = async () => {
@@ -39,19 +41,23 @@ function LinearPostCard({ post }: { post: PostInterface }) {
             <h4>{new Date(post.createdAt).toLocaleDateString()}</h4>
           </div>
           <div className='flex gap-2'>
-            <button
-              onClick={handleDeletePost}
-              className='bg-red-500 text-white py-1.5 px-4 rounded-md font-bold cursor-pointer'
-            >
-              Delete
-            </button>
-            <Link
-              to={`/posts/${post._id}/edit`}
-              state={{ post }}
-              className='bg-green-500 text-white py-1.5 px-4 rounded-md font-bold cursor-pointer'
-            >
-              Edit
-            </Link>
+            <CanDeletePost>
+              <button
+                onClick={handleDeletePost}
+                className='bg-red-500 text-white py-1.5 px-4 rounded-md font-bold cursor-pointer'
+              >
+                Delete
+              </button>
+            </CanDeletePost>
+            <CanUpdatePost>
+              <Link
+                to={`/posts/${post._id}/edit`}
+                state={{ post }}
+                className='bg-green-500 text-white py-1.5 px-4 rounded-md font-bold cursor-pointer'
+              >
+                Edit
+              </Link>
+            </CanUpdatePost>
           </div>
         </div>
       </div>
