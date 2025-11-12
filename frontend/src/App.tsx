@@ -9,6 +9,8 @@ import Auth from "./components/Auth";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
+import Profile from "./pages/Profile";
+import Test from "./pages/Test";
 
 function App() {
   const dark = localStorage.getItem("dark");
@@ -54,6 +56,8 @@ function App() {
             }
           />
           <Route path='/posts/:id/edit' element={<EditPost />} />
+          <Route path='/profile/:username' element={<Profile />} />
+          <Route path='/test' element={<Test />} />
         </Route>
       </Routes>
     </>

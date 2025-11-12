@@ -81,8 +81,15 @@ function Header() {
                     onClick={openMenu}
                     className='flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-blue-800 dark:hover:bg-opacity-30 transition-colors cursor-pointer'
                   >
-                    <div className=' w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-semibold text-sm'>
-                      {user?.username?.charAt(0).toUpperCase() || "U"}
+                    <div className=' w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-semibold text-sm overflow-hidden'>
+                      {user?.profileImage ? (
+                        <img
+                          src={user.profileImage}
+                          className='w-full h-full object-cover'
+                        />
+                      ) : (
+                        <>{user?.username?.charAt(0).toUpperCase() || "U"}</>
+                      )}
                     </div>
                     {menuVisibility ? (
                       <>
@@ -90,10 +97,14 @@ function Header() {
                         <div className='absolute top-[60px] left-0 bg-light-blue py-4 px-4 w-full md:w-48'>
                           <ul className='flex flex-col items-start gap-2'>
                             <li className='cursor-pointer hover:underline'>
-                              <Link to={"/profile"}>{user?.username}</Link>
+                              <Link to={`/profile/${user?.username}`}>
+                                {user?.username}
+                              </Link>
                             </li>
                             <li className='cursor-pointer hover:underline'>
-                              <Link to={"/profile"}>Profile</Link>
+                              <Link to={`/profile/${user?.username}`}>
+                                Profile
+                              </Link>
                             </li>
                             <li className='cursor-pointer hover:underline'>
                               <Link to={"/dashboard"}>Dashboard</Link>
