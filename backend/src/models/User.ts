@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
 
-    permessions: [
+    permissions: [
       {
         type: String,
         default: ["create_post", "delete_post", "show_post", "update_post"],

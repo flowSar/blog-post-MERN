@@ -8,7 +8,6 @@ import {
   logInValidation,
   regitserValidation,
 } from "../validations/authValidations.js";
-import { uploadSingle } from "../middleware/upload.js";
 
 const authRouter = express.Router();
 

@@ -104,7 +104,7 @@ export const validateMongoId = [
       return res.failure({
         statusCode: 400,
         errors: errors,
-        message: "",
+        message: "id validtion failed",
       });
     }
     next();

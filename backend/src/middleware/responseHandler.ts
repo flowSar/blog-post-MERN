@@ -4,7 +4,7 @@ import type { ErrorInterface } from "../utils/types.js";
 interface CustomResponse {
   success: (params: {
     statusCode: number;
-    data: unknown[];
+    data: unknown[] | unknown;
     message: string;
   }) => Response;
   failure: (params: {

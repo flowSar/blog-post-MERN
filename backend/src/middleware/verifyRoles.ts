@@ -12,9 +12,9 @@ export const verifyRoles = (...allowedRoles: string[]) => {
 
     if (!allowedRoles.includes(userRole)) {
       return res.failure({
-        statusCode: 401,
+        statusCode: 403,
         errors: { permession: "unauthorized" },
-        message: "you are not authorized",
+        message: "you are not authorized for this action",
       });
     }
 

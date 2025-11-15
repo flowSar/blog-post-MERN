@@ -90,14 +90,21 @@ export const login = async (req: Request, res: Response) => {
       profileImage: foundUser?.profileImage,
       bio: foundUser?.bio,
       role: foundUser.role,
-      permissions: foundUser.permessions,
+      permissions: foundUser.permissions,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET as string, {
+      expiresIn: rememberme ? "30d" : "7d",
+    });
+    const refreshToken = jwt.sign(payload, process.env.JWT_SECRET as string, {
       expiresIn: rememberme ? "30d" : "7d",
     });
 
-    return res.status(200).json({ success: true, token, user: foundUser });
+    // res.cookie(refreshToken, {httpOnly: true, secure: true, });
+
+    return res
+      .status(200)
+      .json({ success: true, token: accessToken, user: foundUser });
   } catch (error) {
     console.log("erver error: ", error);
     return res.status(500).json({
@@ -136,3 +143,5 @@ export const validateToken = (req: Request, res: Response) => {
     return res.status(500).json({ message: "server error" });
   }
 };
+
+export const refreshToken = (req: Request, res: Response) => {};

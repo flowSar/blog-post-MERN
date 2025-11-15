@@ -36,6 +36,7 @@ app.use("/auth", authRouter);
 app.use("/posts", postRouter);
 app.use("/upload", uploadRouter);
 app.use("/users", userRouter);
+// app.use(ErrorHandler);
 
 app.post("/api/test", (req: Request, res: Response) => {
   // return res.status(200).json({ success: true, message: "test message" });
