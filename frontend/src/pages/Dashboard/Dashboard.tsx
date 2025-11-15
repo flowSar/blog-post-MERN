@@ -1,24 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Posts from "./Posts";
 import Users from "./Users";
 
 function Dashboard() {
   const { user } = useAuth();
-  const [section, setSection] = useState("Posts");
+  const selected = localStorage.getItem("tab");
+
+  const [selectedTab, setSelectedTab] = useState(selected ?? "Posts");
 
   const handleSectionSelection = (section: string) => {
-    setSection(section);
+    setSelectedTab(section);
   };
   const selectedSection = () => {
-    switch (section) {
+    localStorage.setItem("tab", selectedTab);
+    switch (selectedTab) {
       case "Posts":
         return <Posts />;
       case "Users":
         return <Users />;
+      default: {
+        localStorage.setItem("tab", selectedTab);
+      }
     }
+
     // return <Posts posts={posts} />;
   };
+
+  // useEffect(() => {
+  //   const selected = localStorage.getItem("tab");
+  // }, []);
   return (
     <div className='flex flex-col md:flex-row flex-1 gap-4 '>
       <aside className='hidden md:flex  md:w-1/6 bg-gray-100 text-white dark:text-black dark:bg-light-blue mt-4'>
@@ -30,7 +41,7 @@ function Dashboard() {
             <li
               onClick={() => handleSectionSelection("Posts")}
               className={`py-2 px-4 cursor-pointer text-white ${
-                section !== "Posts" || "bg-blue-400"
+                selectedTab !== "Posts" || "bg-blue-400"
               }`}
             >
               Posts
@@ -38,7 +49,7 @@ function Dashboard() {
             <li
               onClick={() => handleSectionSelection("Users")}
               className={`py-2 px-4 cursor-pointer text-white ${
-                section !== "Users" || "bg-blue-400"
+                selectedTab !== "Users" || "bg-blue-400"
               }`}
             >
               Users
@@ -54,7 +65,7 @@ function Dashboard() {
               <li
                 onClick={() => handleSectionSelection("Posts")}
                 className={`py-2 cursor-pointer hover:underline ${
-                  section !== "Posts" || "text-red-400"
+                  selectedTab !== "Posts" || "text-red-400"
                 }`}
               >
                 Posts/
@@ -62,7 +73,7 @@ function Dashboard() {
               <li
                 onClick={() => handleSectionSelection("Users")}
                 className={`py-2 cursor-pointer hover:underline ${
-                  section !== "Users" || "text-red-400"
+                  selectedTab !== "Users" || "text-red-400"
                 }`}
               >
                 Users/

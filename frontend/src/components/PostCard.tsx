@@ -2,7 +2,7 @@ import CommentIcon from "./icons/CommentIcon";
 import LikeIcon from "./icons/LikeIcon";
 
 interface PostInterface {
-  id: string;
+  _id: string;
   title: string;
   slug: string;
   description: string;

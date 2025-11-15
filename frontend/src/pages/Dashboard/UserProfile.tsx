@@ -1,18 +1,13 @@
-import { use, useEffect, useState, type ChangeEvent } from "react";
-import CountCard from "../components/CountCard";
-import PostsIcon from "../components/icons/PostsIcon";
-import LikeIcon from "../components/icons/LikeIcon";
-import CommentIcon from "../components/icons/CommentIcon";
-import TextInput from "../components/TextInput";
-import { useAuth } from "../context/AuthContext";
-import type { PostInterface } from "../utils/types";
-import { getUserPosts } from "../services/api/PostApi";
-import SimpleLinearPostCard from "../components/SimpleLinearPostCard";
+import { useEffect, useState, type ChangeEvent } from "react";
+import TextInput from "../../components/TextInput";
+import { useLocation } from "react-router";
+import RolePermissionSection from "../RolePermissionsSection";
 
-function Profile() {
-  const { user } = useAuth();
+function UserProfile() {
+  const location = useLocation();
+  const user = location.state?.user;
+  console.log("user: ", location.state.user);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [posts, setPosts] = useState<PostInterface[]>([]);
   const [formData, setFormData] = useState({
     username: user?.username || "",
     email: user?.email || "",
@@ -20,18 +15,7 @@ function Profile() {
     bio: user?.bio || "",
   });
 
-  useEffect(() => {
-    setPosts([]);
-    async function fetchPosts() {
-      const { success, posts } = await getUserPosts(user?.id!);
-      if (success) {
-        setPosts(posts);
-      }
-    }
-
-    fetchPosts();
-  }, []);
-  console.log("posts ", posts);
+  useEffect(() => {}, []);
 
   const changeVisibility = () => {
     setIsEditing((old) => !old);
@@ -143,33 +127,10 @@ function Profile() {
       ) : (
         <></>
       )}
-      <section id='' className='bg-dark-blue rounded-lg '>
-        <div className='flex flex-col md:flex-row space-y-6 md:space-y-0 space-x-0 md:space-x-4'>
-          <CountCard title='Posts' count={24}>
-            <PostsIcon className='w-10 h-10' />
-          </CountCard>
-          <CountCard title='Likes' count={24}>
-            <LikeIcon className='w-10 h-10' />
-          </CountCard>
-          <CountCard title='Comments' count={24}>
-            <CommentIcon className='w-10 h-10' />
-          </CountCard>
-        </div>
-      </section>
-      <section id='recent-posts' className='p-4 bg-light-blue'>
-        <h1 className='text-3xl font-bold'>Recent Posts</h1>
-        <div className='flex flex-col mt-4'>
-          {posts.map((post, index) => {
-            if (index < 3) {
-              return <SimpleLinearPostCard post={post} />;
-            }
-            return <></>;
-          })}
-          {/* <LinearPostCard post={posts[0]} /> */}
-        </div>
-      </section>
+
+      <RolePermissionSection user={user} />
     </div>
   );
 }
 
-export default Profile;
+export default UserProfile;

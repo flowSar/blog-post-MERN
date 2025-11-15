@@ -10,3 +10,18 @@ export const getAllUsers = async () => {
     return { success: false, message: error.response.data.message };
   }
 };
+
+export const updateUserRolePermissions = async (id: string, form: FormData) => {
+  try {
+    const response = await api.put(
+      `http://localhost:4444/users/${id}/access-controle`,
+      form
+    );
+    const { success, data, message } = response.data;
+    return { success, user: data, message };
+  } catch (error: any) {
+    console.log("update role and permissions error: ", error);
+    const data = error.response.data;
+    return { success: false, errors: data.errors, message: data.message };
+  }
+};

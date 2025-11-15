@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Navigate, useNavigate } from "react-router";
+import { Navigate } from "react-router";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isLogged, loading } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   if (loading) {
     return <div>Laoding..</div>;

@@ -11,6 +11,7 @@ import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
 import Profile from "./pages/Profile";
 import Test from "./pages/Test";
+import UserProfile from "./pages/Dashboard/UserProfile";
 
 function App() {
   const dark = localStorage.getItem("dark");
@@ -56,8 +57,18 @@ function App() {
             }
           />
           <Route path='/posts/:id/edit' element={<EditPost />} />
+
           <Route path='/profile/:username' element={<Profile />} />
           <Route path='/test' element={<Test />} />
+
+          <Route
+            path='/dashboard/users/:username/profile'
+            element={
+              <Auth>
+                <UserProfile />
+              </Auth>
+            }
+          />
         </Route>
       </Routes>
     </>

@@ -1,8 +1,13 @@
+import { Link } from "react-router";
 import type { UserInterface } from "../utils/types";
 
 function UserCard({ user }: { user: UserInterface }) {
   return (
-    <div className='dark:bg-dark-blue p-4 flex flex-col items-center rounded-lg'>
+    <Link
+      to={`/dashboard/users/${user.username}/profile`}
+      state={{ user }}
+      className='dark:bg-dark-blue p-4 flex flex-col items-center rounded-lg'
+    >
       <div className='h-28 w-28 rounded-full bg-blue-300 overflow-hidden'>
         {user.profileImage ? (
           <img src={user.profileImage} className='w-full h-full object-cover' />
@@ -24,7 +29,7 @@ function UserCard({ user }: { user: UserInterface }) {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

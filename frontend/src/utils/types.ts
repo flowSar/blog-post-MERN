@@ -14,7 +14,7 @@ export interface PostInterface {
 }
 
 export interface UserInterface {
-  id: string;
+  _id: string;
   username: string;
   email: string;
   profileImage: string;

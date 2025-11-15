@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import PostsIcon from "../components/icons/PostsIcon";
 import PostCard from "../components/PostCard";
-import Layout from "../layouts/Layout";
 import { getAllPosts } from "../services/api/PostApi";
+import type { PostInterface } from "../utils/types";
 
 function Home() {
-  const [post, setPosts] = useState([]);
+  const [post, setPosts] = useState<PostInterface[]>([]);
   useEffect(() => {
     const loadPosts = async () => {
       const { success, errors, posts } = await getAllPosts();
@@ -35,7 +35,7 @@ function Home() {
             f
           </aside>
           {post.map((post) => (
-            <PostCard post={post} />
+            <PostCard key={post._id} post={post} />
           ))}
         </div>
       </div>
